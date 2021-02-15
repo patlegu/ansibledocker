@@ -2,12 +2,12 @@
 #
 # @see https://launchpad.net/~ansible/+archive/ubuntu/ansible
 #
-# Version  0.4
+# Version  0.5
+#
 #
 
-
 # pull base image
-FROM debian:9.1
+FROM debian:9.13-slim
 
 MAINTAINER breizhlandocker <psychomonckey@hotmail.fr>
 
@@ -16,19 +16,20 @@ RUN echo "===> Installing python, sudo, and supporting tools..."  && \
     apt-get update -y  &&  apt-get install --fix-missing          && \
     DEBIAN_FRONTEND=noninteractive         \
     apt-get install -y                     \
-        python python-yaml sudo sshpass \
-        curl gcc python-pip python-dev libffi-dev libssl-dev  && \
+        python3 python3-setuptools python3-psutil python3-bottle python3-requests libzbar-dev libzbar0 \
+        python3-yaml sudo sshpass  curl gcc python3-pip python3-dev libffi-dev libssl-dev genisoimage unrar-free \
+        libxml2-dev libxslt-dev && \
     apt-get -y --purge remove python-cffi          && \
-    pip install --upgrade pycrypto cffi pyvmomi ciscoconfparse napalm nornir   && \
+    pip3 install --upgrade pycrypto cffi pyvmomi ciscoconfparse napalm pypsrp && \
     \
     \
     echo "===> Installing Ansible..."   && \
-    pip install ansible                 && \
+    pip3 install ansible                 && \
     \
     \
     echo "===> Removing unused APT resources..."                  && \
     apt-get -f -y --auto-remove remove \
-                 gcc python-pip python-dev libffi-dev libssl-dev  && \
+                 gcc python3-pip python3-dev libffi-dev libssl-dev  && \
     apt-get clean                                                 && \
     rm -rf /var/lib/apt/lists/*  /tmp/*                           && \
     \
