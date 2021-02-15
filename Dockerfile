@@ -2,12 +2,12 @@
 #
 # @see https://launchpad.net/~ansible/+archive/ubuntu/ansible
 #
-# Version  0.3
+# Version  0.4
 #
 
 
 # pull base image
-FROM debian:9.11
+FROM debian:9.1
 
 MAINTAINER breizhlandocker <psychomonckey@hotmail.fr>
 
@@ -16,10 +16,10 @@ RUN echo "===> Installing python, sudo, and supporting tools..."  && \
     apt-get update -y  &&  apt-get install --fix-missing          && \
     DEBIAN_FRONTEND=noninteractive         \
     apt-get install -y                     \
-        python python-yaml sudo sshpass    \
+        python python-yaml sudo sshpass \
         curl gcc python-pip python-dev libffi-dev libssl-dev  && \
     apt-get -y --purge remove python-cffi          && \
-    pip install --upgrade pycrypto cffi pyvmomi    && \
+    pip install --upgrade pycrypto cffi pyvmomi ciscoconfparse napalm nornir   && \
     \
     \
     echo "===> Installing Ansible..."   && \
