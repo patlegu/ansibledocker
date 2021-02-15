@@ -2,12 +2,12 @@
 #
 # @see https://launchpad.net/~ansible/+archive/ubuntu/ansible
 #
-# Version  0.2
+# Version  0.3
 #
 
 
 # pull base image
-FROM debian:stretch
+FROM debian:9.11
 
 MAINTAINER breizhlandocker <psychomonckey@hotmail.fr>
 
@@ -40,9 +40,12 @@ RUN echo "===> Installing python, sudo, and supporting tools..."  && \
 
 COPY ansible-playbook-wrapper /usr/local/bin/
 
+RUN echo "===> Making ansible-playbook-wrapper executable ..."  && \
+	chmod a+x /usr/local/bin/ansible-playbook-wrapper
+
 ONBUILD  RUN  DEBIAN_FRONTEND=noninteractive  apt-get update   && \
               echo "===> Updating TLS certificates..."         && \
-              apt-get install -y openssl ca-certificates vim
+              apt-get install -y openssl ca-certificates
 
 ONBUILD  WORKDIR  /tmp
 ONBUILD  COPY  .  /tmp
