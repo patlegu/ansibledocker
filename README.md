@@ -1,10 +1,10 @@
 # ansibledocker
 Ansible running in a Docker container.
 
-##How to use it:
+## How to use it:
 - Create a directory to host all the followig files.
 - Create a `Dockerfile`:
-`
+```
 FROM breizhlandocker/ansibledocker:latest
 
 # ==> Specify requirements filename;  default = "requirements.yml"
@@ -18,17 +18,17 @@ ENV INVENTORY     inventory.ini
 
 # ==> Executing Ansible (with a simple wrapper)...
 RUN ansible-playbook-wrapper
-`
+```
 - Create a file `inventory.ini`
-`
+```
 server01 ansible_ssh_host=111.222.333.444
-`
+```
 Or if the port is not the standard ssh port:
-`
+```
 server01 ansible_ssh_host=111.222.333.444 ansible_ssh_port=222
-`
+```
 - Create a file named `playbook.yml` with the something like this:
-`
+```yaml
 ---
 # ------------------------------------------------------
 # Playbook qui permet d installer netdata.---
@@ -68,5 +68,5 @@ server01 ansible_ssh_host=111.222.333.444 ansible_ssh_port=222
     args:
       chdir: /root/netdata
       executable: /bin/bash
-`
+```
 - The container just need to be launch as any container one.
