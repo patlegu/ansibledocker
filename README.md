@@ -1,4 +1,4 @@
-# ansibledocker
+# docker-ansible
 Ansible running in a Docker container.
 
 ## How to use it:
